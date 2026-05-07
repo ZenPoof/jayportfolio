@@ -1,0 +1,179 @@
+#education {
+    padding: 60px 7%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#education .heading {
+    font-size: 4.5rem;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#education .heading span {
+    color: #ff4d4d;
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.4);
+}
+
+.education-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-width: 900px;
+    width: 100%;
+    margin-top: -2rem;
+}
+
+.edu-card {
+    display: flex;
+    flex-direction: row; 
+    gap: 3rem;
+    padding: 3.5rem;
+    border-radius: 2.5rem;
+    background: rgba(20, 0, 0, 0.1) !important;
+    border: 1px solid #3d0000 !important; 
+    transition: all 0.3s ease; 
+}
+
+.edu-level {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ff4d4d;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    border-left: 2px solid #ff4d4d;
+    padding-left: 1rem;
+    text-align: center;
+    min-width: 30px; /* Keeps the sidebar consistent */
+}
+
+/* THE FIX: This makes the content expand to fill the card */
+.edu-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* THE FIX: This forces the name and year to the edges */
+.edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.edu-content h3 {
+    font-size: 2.2rem;
+    color: #fff;
+    margin: 0; /* Prevents alignment issues */
+}
+
+.edu-year {
+    font-size: 1.5rem;
+    color: #ff4d4d;
+    font-weight: 600;
+    white-space: nowrap; /* Keeps date on one line */
+    margin-left: 20px;
+}
+
+.degree {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: hsl(0, 0%, 90%);
+    margin-bottom: 1.5rem;
+}
+
+.edu-desc {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.edu-footer {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.honors {
+    background: rgba(255, 77, 77, 0.15);
+    color: #ff4d4d;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: 1px solid rgba(255, 77, 77, 0.3);
+}
+
+.location {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+}
+/* =============================================
+   MOBILE RESPONSIVE — eduUI
+   ============================================= */
+@media (max-width: 768px) {
+    #education {
+        padding: 80px 5% 60px;
+    }
+
+    #education .heading {
+        font-size: 3.2rem;
+        margin-top: 0;
+        margin-bottom: 3rem;
+    }
+
+    .edu-card {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2.5rem;
+    }
+
+    .edu-level {
+        writing-mode: horizontal-tb;
+        transform: none;
+        border-left: none;
+        border-bottom: 2px solid #ff4d4d;
+        padding-left: 0;
+        padding-bottom: 0.8rem;
+        font-size: 1.3rem;
+        text-align: left;
+    }
+
+    .edu-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .edu-content h3 {
+        font-size: 1.8rem;
+    }
+
+    .edu-year {
+        margin-left: 0;
+        font-size: 1.3rem;
+    }
+
+    .degree {
+        font-size: 1.5rem;
+    }
+
+    .edu-desc {
+        font-size: 1.3rem;
+    }
+
+    .edu-footer {
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+/* position of the HEADERS */
+header{
+    background: rgba(255, 255, 255, 0.05); /* Very light white tint */
+    border-radius: 15px;
+    border: 4px solid #280000;
+    backdrop-filter: blur(18px);    /* Blurs the content behind the header */
+    border-bottom: 4px solid rgba(40, 0, 0); /* Subtle dark red border */
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.8rem 9%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px); /* Added for Safari support */
+    border-bottom: 4px solid #280000;
+}
+
+/* color of the TITLE (Jayron Kevin T Paule) */
+.logo{
+    font-size: 3rem;
+    color: #8B0000 !important;
+    text-shadow: 0 0 10px #8B0000, 
+    0 0 0px rgba(183, 75, 75, 0.4);
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.logo:hover{
+    cursor: pointer;    
+}
+
+/* color of the headers 
+   > Home Services Skills Education Experience Contact */
+nav a{
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.5rem !important;
+    color: #b74b4b !important;
+    margin-left: 4rem;
+    font-weight: 600;
+    transition: 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+/* color of the headers WHEN HOVERED
+   > Home Services Skills Education Experience Contact */
+nav a:hover{
+    color: #b74b4b;
+}
+
+nav a {
+    position: relative;
+    text-decoration: none;
+    /* Ensure the link container only fits the text */
+    display: inline-block; 
+}
+
+/* The expanding line */
+nav a::after {
+    content: '';
+    position: absolute;
+    /* This moves the line up to touch the bottom of the text */
+    bottom: 0px; 
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #b74b4b;
+    /* This ensures it grows from the center outward */
+    transform: translateX(-50%);
+    transition: width 0.2s ease;
+}
+
+/* When you hover the text */
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a:hover {
+    color: #b74b4b;
+}
+
+
+
+/* phone version of the menu (it pops out when screen is small) */
+@media(max-width:995px){
+    nav{
+        position: absolute;
+        display: none;
+        top: 0;
+        right: 0;
+        width: 40%;
+        border-left: 3px solid #b74b4b;
+        border-bottom: 3px solid #b74b4b;
+        border-bottom-left-radius: 2rem;
+        padding: 1rem solid;
+        background-color: #161616;
+        border-top: 0.1rem solid rgba(0,0,0,0.1);
+    }
+
+     /* shows the small version of the menu when it has "active" */
+    nav.active{
+        display: block;
+    }
+
+
+    /* makes each menu link stack vertically and look bigger (mobile style) */
+    nav a{
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+    }
+
+    /* end of mobile menu styling saying its done (only works when screen is small) 
+       and highlights the link you touch */
+    nav a:hover,
+    nav a.active{
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border-bottom: 0.5rem solid #b74b4b;
+    }
+}
+
+/* the figure or format of the top-left button such as size and position */
+.top-left-btn{
+    position: absolute;
+    top: 2.5rem;
+    left: 2.5rem;
+
+    width: 5rem;
+    height: 5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+    border: 2px solid #8B0000;
+    border-radius: 50%;
+
+    box-shadow: 0 0 15px rgba(183, 75, 75, 0.3);
+
+    transition: 0.3s ease;
+    cursor: pointer;
+
+    z-index: 1000;
+}
+/* =============================================
+   MOBILE RESPONSIVE — headersUI
+   ============================================= */
+@media (max-width: 768px) {
+    header {
+        padding: 1.8rem 5%;
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-size: 2.2rem;
+        margin-left: 0;
+        /* push it right of the avatar button */
+        padding-left: 6rem;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(10, 0, 0, 0.97);
+        border-left: 2px solid #3d0000;
+        padding: 10rem 3rem 3rem;
+        display: flex !important;
+        flex-direction: column;
+        gap: 0;
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 9000;
+    }
+
+    nav.active {
+        right: 0;
+    }
+
+    nav a {
+        display: block;
+        font-size: 2rem !important;
+        margin: 0 0 2rem 0;
+        padding: 1rem 1.5rem;
+        border-radius: 1rem;
+    }
+
+    nav a:hover,
+    nav a.active {
+        background: rgba(183, 75, 75, 0.12);
+        border-bottom: none;
+    }
+
+    /* Hamburger icon — three-line button */
+    .hamburger-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 4rem;
+        height: 4rem;
+        cursor: pointer;
+        z-index: 10001;
+        background: transparent;
+        border: none;
+        padding: 0.5rem;
+    }
+
+    .hamburger-btn span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #8B0000;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger-btn.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger-btn.open span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger-btn.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Overlay behind mobile nav */
+    .nav-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 8999;
+    }
+
+    .nav-overlay.active {
+        display: block;
+    }
+}
+
+/* Hide hamburger on desktop */
+@media (min-width: 769px) {
+    .hamburger-btn { display: none; }
+    .nav-overlay { display: none !important; }
+}

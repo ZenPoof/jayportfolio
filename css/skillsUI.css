@@ -1,0 +1,235 @@
+/* Specific heading for skills */
+#skills .heading {
+    margin-top: -60px;    /* Pulls the title UP */
+    margin-bottom: 2rem;  /* Keeps it close to the cards below */
+    font-size: 4.5rem; /* Makes it much bigger */
+    text-align: center;
+    margin-bottom: 10rem; /* Pulls the title closer to the cards */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#skills .heading span {
+    color: #ff4d4d;
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.4);
+} 
+
+/* --- SECTION SETUP --- */
+.skills-page {
+    /* Standardized to 7% to match your Services exactly */
+    padding:110px 7%; 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* This ensures the header doesn't block the title when jumping to this section */
+    scroll-margin-top: 80px; 
+}
+
+/* --- THE GRID --- */
+.skills-matrix {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* This gap creates the space BETWEEN the cards */
+    gap: 2.5rem; 
+    width: 100%;
+    /* Standardized max-width prevents cards from spreading too far on wide screens */
+    max-width: 1200px; 
+    margin: -1rem auto 0;
+}
+
+/* --- THE CARDS --- */
+.skill-card {
+    /* 1 1 300px means: grow, shrink, and start at 300px wide */
+    flex: 1 1 300px;
+    /* max-width prevents cards from becoming giant horizontal bars on big screens */
+    max-width: 326px; 
+    background: rgba(20, 0, 0, 0.1) !important; /* Force the dark tint */
+    border: 1px solid #3d0000 !important; 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 24px;
+    padding: 4rem 2.5rem; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --- ICONS & TYPOGRAPHY --- */
+.icon-box i {
+    font-size: 5rem;
+    color: #ff4d4d;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 10px rgba(255, 77, 77, 0.3));
+}
+
+.skill-card h3 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.2rem;
+}
+
+.skill-desc {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.7;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    min-height: 5rem; 
+}
+
+/* --- PROGRESS BAR --- */
+.liquid-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.liquid-fill {
+    height: 100%;
+    background: #ff4d4d;
+    box-shadow: 0 0 15px #ff4d4d;
+    transition: width 2s ease-in-out;
+}
+
+/* --- FOOTER --- */
+.card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; 
+}
+
+.percentage {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ff4d4d;
+}
+
+.btn-mini {
+    padding: 0.7rem 1.8rem;
+    border: 2px solid #ff4d4d;
+    border-radius: 50px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-mini:hover {
+    background: #ff4d4d;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
+}
+
+/* --- THE INSANE MODAL UI --- */
+
+.insane-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 2.5rem;
+}
+
+.insane-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 77, 77, 0.2);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s ease;
+}
+
+.insane-item i {
+    font-size: 2rem;
+    color: #ff4d4d;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+}
+
+.insane-item span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+/* --- THE SCRATCH-OFF CLOSING ANIMATION --- */
+
+.modal-overlay {
+    animation: modalPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.modal-overlay.modal-closing {
+    animation: modalPopOut 0.4s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+@keyframes modalPopIn {
+    0% { opacity: 0; backdrop-filter: blur(0px); transform: scale(1.1); }
+    100% { opacity: 1; backdrop-filter: blur(20px); transform: scale(1); }
+}
+
+@keyframes modalPopOut {
+    0% { opacity: 1; backdrop-filter: blur(20px); transform: scale(1); }
+    100% { opacity: 0; backdrop-filter: blur(0px); transform: scale(0.8); filter: blur(15px); }
+}
+
+/* Modal Title Polish */
+#modalTitle {
+    background: linear-gradient(90deg, #fff, #ff4d4d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.stop-scrolling {
+    height: 100%;
+    overflow: hidden !important;
+    /* This prevents the page from jumping if the scrollbar disappears */
+    padding-right: 0px; 
+}
+/* =============================================
+   MOBILE RESPONSIVE — skillsUI
+   ============================================= */
+@media (max-width: 768px) {
+    .skills-page {
+        padding: 80px 5% 60px;
+    }
+
+    #skills .heading {
+        font-size: 3.2rem;
+        margin-top: 0;
+        margin-bottom: 4rem;
+    }
+
+    .skills-matrix {
+        gap: 2rem;
+    }
+
+    .skill-card {
+        flex: unset;
+        width: 100%;
+        max-width: 400px;
+        max-width: 100%;
+        padding: 3rem 2rem;
+    }
+
+    .insane-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #modalTitle {
+        font-size: 2.5rem;
+    }
+}

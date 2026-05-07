@@ -1,0 +1,191 @@
+/* top left button position */
+.top-left-btn {
+    position: fixed;
+    top: 1.8rem;
+    left: 2rem;
+}
+
+/* the image inside the top-left button */
+.top-left-btn img{
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    z-index: 999;
+
+    filter: brightness(0) saturate(100%) invert(8%) sepia(95%) saturate(5000%) hue-rotate(350deg);
+}
+
+/* how it scales and lights up when hovered (top-left button) */
+.top-left-btn:hover{
+    transform: scale(1.1);
+    background-color: #8B0000;
+    box-shadow: 0 0 25px rgba(183, 75, 75, 0.6);
+}
+
+/* when you hover over the top-left button, it makes the image completely dark (black) or you could say it inverts its colors. */
+.top-left-btn:hover img{
+    filter: brightness(0);
+}
+
+/* MENU BASE STATE (hidden - left side) */
+.menu-items{
+    position: fixed;
+    top: 10rem;
+    left: 2.5rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    padding: 1rem;
+    border-radius: 2rem;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+
+    /* hidden left */
+    opacity: 0;
+    transform: translateX(-60px);
+
+    pointer-events: none;
+
+    transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    z-index: 9999;
+    
+}
+
+/* The default state of the menu (Hidden) */
+#menu {
+    position: fixed;
+    top: 40px; /* Adjust based on your header height */
+    left: 20px;
+    background: rgba(20, 0, 0, 0.9); /* Dark red theme */
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    
+    /* This keeps it invisible and moved slightly left */
+    opacity: 0;
+    transform: translateX(-20px);
+    pointer-events: none; 
+    transition: all 0.4s ease;
+    z-index: 1000;
+}
+
+/* The state when the menu is OPEN (Showing) */
+#menu.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    /* Red Glow for the menu box */
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.6);
+}
+
+/* Ensure the links inside look correct */
+#menu a {
+    color: #b74b4b;
+    text-decoration: none;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+/* MENU OPEN STATE */
+.menu-items.active{
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.menu-items a{
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    font-size: 1.8rem;
+    color: #8B0000;
+
+    padding: 0.8rem 0.6rem;
+    width: 100%;
+
+    border-radius: 1rem;
+    transition: 0.3s ease;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.menu-items a:hover{
+    background: rgba(183, 75, 75, 0.15);
+    color: #b74b4b;
+}
+
+.menu-items a i{
+    font-size: 2.8rem;
+
+    width: 3.2rem;          /* forces same space for all icons */
+    height: 3.2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.liquid-glass {
+  background: rgba(139, 0, 0, 0.08); /* dark red tint */
+  background-blend-mode: luminosity;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(183, 75, 75, 0.2);
+
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    0 0 25px rgba(183, 75, 75, 0.15);
+
+  position: relative;
+  overflow: hidden;
+
+  border-radius: 2rem;
+}
+
+#menu.menu-items {
+    top: 10rem !important;
+    z-index: 10000 !important; /* Makes sure it stays on top of the header */
+}
+/* =============================================
+   MOBILE RESPONSIVE — socialsUI
+   ============================================= */
+@media (max-width: 768px) {
+    .top-left-btn {
+        top: 1.2rem;
+        left: 1.2rem;
+        width: 4.2rem;
+        height: 4.2rem;
+    }
+
+    #menu {
+        left: 10px;
+        top: 70px;
+        padding: 15px;
+        gap: 10px;
+    }
+
+    #menu a {
+        font-size: 1.4rem;
+    }
+
+    .menu-items {
+        left: 1rem;
+        top: 8rem;
+    }
+}

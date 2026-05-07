@@ -1,0 +1,46 @@
+
+/* =============================================
+   MOBILE RESPONSIVE — journalmain
+   ============================================= */
+@media (max-width: 768px) {
+    .journal-hero {
+        padding: 120px 5% 40px;
+    }
+
+    .journal-hero h1 {
+        font-size: clamp(3.5rem, 10vw, 6rem);
+    }
+
+    .journals-section {
+        padding: 0 5% 60px;
+    }
+
+    .journals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .journal-card.featured .card-body {
+        grid-template-columns: 1fr;
+    }
+
+    .journal-card.featured .card-title {
+        font-size: 2.6rem;
+    }
+
+    .stats-bar {
+        gap: 2rem;
+    }
+
+    .journal-modal {
+        padding: 3.5rem 2.5rem;
+        border-radius: 20px;
+    }
+
+    .modal-title {
+        font-size: 2.8rem;
+    }
+
+    .modal-body {
+        font-size: 1.5rem;
+    }
+}

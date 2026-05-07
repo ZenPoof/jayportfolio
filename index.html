@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        html, body { background-color: #000000 !important; }
+    </style>
+    <title>Hire Jayron!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+
+    <!-- Typography: Cormorant Garamond (display) + DM Sans (body) + DM Mono (accents) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Your existing stylesheets -->
+<link rel="stylesheet" href="css/headersUI.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/homeUI.css">
+<link rel="stylesheet" href="css/socialsUI.css">
+<link rel="stylesheet" href="css/servicesUI.css">
+<link rel="stylesheet" href="css/skillsUI.css">
+<link rel="stylesheet" href="css/eduUI.css">
+<link rel="stylesheet" href="css/expUI.css">
+<link rel="stylesheet" href="css/bgParticles.css">
+
+    <style>
+
+        /* FIX #2: Prevent white flash (FOUC) by hiding body until page is ready */
+        body {
+            visibility: hidden;
+        }
+
+        :root {
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body:    'DM Sans', sans-serif;
+            --font-mono:    'DM Mono', monospace;
+
+            /* Spacing scale */
+            --space-xs:  0.4rem;
+            --space-sm:  0.8rem;
+            --space-md:  1.6rem;
+            --space-lg:  3.2rem;
+            --space-xl:  6.4rem;
+
+            /* Colors */
+            --red-deep:   #8B0000;
+            --red-bright: #ff4d4d;
+            --red-dim:    #3d0000;
+            --white-100:  rgba(255,255,255,1);
+            --white-70:   rgba(255,255,255,0.7);
+            --white-45:   rgba(255,255,255,0.45);
+            --white-20:   rgba(255,255,255,0.2);
+        }
+
+        html { 
+            font-size: 62.5%; 
+            scroll-behavior: smooth; 
+        }
+
+        body, section {
+            background: transparent !important;
+        }
+
+        /* --- PARTICLE BACKGROUND --- */
+        #bg-particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background-color: rgb(10, 0, 0) !important;
+            filter: blur(0.5px);
+            transform: scale(1.05);
+            overflow: hidden;
+        }
+        #particle-canvas {
+            display: block;
+            width: 100%; height: 100%;
+            opacity: 0.6;
+        }
+
+/* headers */
+        header {
+            /* Keep your existing header layout from headersUI.css */
+        }
+
+        /* Logo — display serif, refined */
+        header .logo {
+            font-family: var(--font-display);
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--white-100);
+        }
+
+        /* Nav links — body font, tracked caps */
+        header nav a {
+            font-family: var(--font-body);
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--white-70);
+            transition: color 0.25s ease;
+        }
+        header nav a:hover {
+            color: var(--red-bright);
+        }
+
+/* global section */
+        .heading {
+            font-family: var(--font-display) !important;
+            font-weight: 700 !important;
+            font-size: 6rem !important;
+            letter-spacing: 0.02em !important;
+            line-height: 1.05 !important;
+            text-transform: none !important; /* Remove ALL CAPS — display serif reads better as mixed case */
+        }
+
+        .heading span {
+            font-style: italic; /* Cormorant's italic is beautiful */
+        }
+
+/* home section */
+        .home-content h1 {
+            font-family: var(--font-display);
+            font-size: 7rem;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: 0.01em;
+            color: var(--white-100);
+        }
+
+        .home-content h1 span {
+            font-style: italic;
+            font-weight: 700;
+            color: #b74b4b;
+        }
+
+        .home-content p {
+            font-family: var(--font-body);
+            font-size: 1.55rem;
+            font-weight: 300;
+            line-height: 1.85;
+            color: var(--white-70);
+            text-align: left; /* Justified text causes uneven rivers — left align is cleaner */
+            max-width: 580px;
+            margin-top: 2rem;
+            letter-spacing: 0.01em;
+        }
+
+        /* Hire me button */
+        .btn {
+            font-family: var(--font-body);
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+/* services section */
+        #services .heading {
+            font-size: 6rem !important;
+        }
+
+        #services .services-box h3 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+
+        #services .services-box p {
+            font-family: var(--font-body);
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.65);
+        }
+
+        #services .services-box .btn {
+            font-size: 1.3rem;
+            letter-spacing: 0.14em;
+        }
+
+/* skills section */
+        .skill-card h3 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .skill-desc {
+            font-family: var(--font-body);
+            font-size: 1.4rem;
+            font-weight: 300;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.55);
+        }
+
+        /* Percentage — monospaced for numeric precision */
+        .percentage {
+            font-family: var(--font-mono);
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-mini {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+        }
+
+/* modal */
+        .modal-content h2,
+        #modalTitle {
+            font-family: var(--font-display);
+            font-size: 3.8rem;
+            font-weight: 600;
+            font-style: italic;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+        }
+
+        .modal-content p,
+        #modalDesc {
+            font-family: var(--font-body);
+            font-size: 1.55rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(255,255,255,0.8);
+            text-align: left;
+        }
+
+        /* Insane grid skill labels */
+        .insane-item span {
+            font-family: var(--font-mono);
+            font-size: 1.05rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+/* Education Section */
+        #education .heading {
+            font-size: 6rem !important;
+        }
+
+        .edu-content h3 {
+            font-family: var(--font-display);
+            font-size: 2.6rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            line-height: 1.2;
+        }
+
+        .degree {
+            font-family: var(--font-body);
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 1.2rem;
+        }
+
+        .edu-desc {
+            font-family: var(--font-body);
+            font-size: 1.4rem;
+            font-weight: 300;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.55);
+        }
+
+        /* Year and level use mono for precision */
+        .edu-year {
+            font-family: var(--font-mono);
+            font-size: 1.35rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .edu-level {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+        }
+
+        .honors, .location {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+        }
+
+        /* ============================================
+           EXPERIENCE SECTION
+        ============================================ */
+        #experience .heading {
+            font-size: 6rem !important;
+        }
+
+        .exp-main h3 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            line-height: 1.15;
+        }
+
+        .company {
+            font-family: var(--font-body);
+            font-size: 1.45rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: var(--red-bright);
+        }
+
+        .exp-summary {
+            font-family: var(--font-body);
+            font-size: 1.4rem;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .exp-highlights li {
+            font-family: var(--font-body);
+            font-size: 1.45rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.85) !important;
+        }
+
+        /* Tech tags — mono for label precision */
+        .exp-tech-stack span {
+            font-family: var(--font-mono);
+            font-size: 1.15rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+        }
+
+        .exp-duration {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
+
+        /* social menu */
+        #menu a {
+            font-family: var(--font-body);
+            font-size: 1.55rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg-particles">
+        <canvas id="particle-canvas"></canvas>
+    </div>
+    <div class="menu-wrapper"></div>
+    <div class="social-icons"></div>
+
+    <header>
+        <a href="#" class="logo">Jayron Kevin Paule</a>
+        <a href="javascript:void(0)" class="top-left-btn" onclick="toggleMenu()">
+            <img src="images/people.png" alt="menu">
+        </a>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#experience">Experience</a>
+            <a href="journal.html">Journal</a>
+        </nav>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <div id="menu" class="menu-items">
+        <a href="https://discord.gg/2knFgBmuk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a>
+        <a href="https://www.facebook.com/zenjayron" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a>
+        <a href="https://www.instagram.com/zenjayron" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=zennpoof@gmail.com&su=Hello!&body=Hi%20Jayron..." target="_blank">
+            <i class="fa-solid fa-envelope"></i> Email
+        </a>
+    </div>
+
+    <!-- HOME -->
+    <section class="home" id="home">
+        <div class="home-img">
+            <div class="cat-wrapper">
+                <img src="images/main.jpg" class="cat normal" alt="Jayron">
+            </div>
+            <a href="#" class="btn hire-btn">Hire me</a>
+        </div>
+        <div class="home-content">
+            <h1>Hi! My name is <span>Jayron</span></h1>
+            <p>I am a Senior High School student with basic knowledge of coding and a growing interest in Information Technology. I have experience in simple programming and web development fundamentals such as HTML, JavaScript, and CSS. I am eager to learn more, improve my skills, and strive further for success in the field of technology. I am motivated, willing to take on challenges, and determined to grow into a more skilled and capable developer in the future.</p>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="services">
+        <div class="content"></div>
+        <h2 class="heading">My <span>Services</span></h2>
+        <div class="services-container">
+            <div class="services-box liquid-glass">
+                <i class="fa-solid fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Creating responsive and modern websites using HTML, CSS, and JavaScript.</p>
+                <a href="javascript:void(0)" class="btn" data-service="web-dev">Read More</a>
+            </div>
+            <div class="services-box liquid-glass">
+                <i class="fa-solid fa-palette"></i>
+                <h3>UI/UX Design</h3>
+                <p>Designing clean and immersive user interfaces with modern trends.</p>
+                <a href="javascript:void(0)" class="btn" data-service="ui-ux">Read More</a>
+            </div>
+            <div class="services-box liquid-glass">
+                <i class="fa-solid fa-terminal"></i>
+                <h3>Programming</h3>
+                <p>Writing simple scripts and logic to solve problems.</p>
+                <a href="javascript:void(0)" class="btn" data-service="programming">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="serviceModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDesc"></p>
+        </div>
+    </div>
+
+    <!-- SKILLS -->
+    <section id="skills" class="skills-page">
+        <h2 class="heading">My <span>Skills</span></h2>
+        <div class="skills-matrix">
+
+            <div class="skill-card liquid-glass" data-level="90%">
+                <div class="glass-inner">
+                    <div class="icon-box"><i class="fa-brands fa-html5"></i></div>
+                    <h3>HTML5</h3>
+                    <p class="skill-desc">Structuring accessible, semantic, and modern web architectures.</p>
+                    <div class="liquid-container"><div class="liquid-fill"></div></div>
+                    <div class="card-footer">
+                        <span class="percentage">90%</span>
+                        <a href="javascript:void(0)" class="btn-mini">Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-card liquid-glass" data-level="85%">
+                <div class="glass-inner">
+                    
+                    <div class="icon-box"><i class="fa-brands fa-css3-alt"></i></div>
+                    <h3>CSS3</h3>
+                    <p class="skill-desc">Designing responsive layouts with advanced styling and animations.</p>
+                    <div class="liquid-container"><div class="liquid-fill"></div></div>
+                    <div class="card-footer">
+                        <span class="percentage">85%</span>
+                        <a href="javascript:void(0)" class="btn-mini">Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-card liquid-glass" data-level="80%">
+                <div class="glass-inner">
+                    <div class="icon-box"><i class="fa-brands fa-js"></i></div>
+                    <h3>JavaScript</h3>
+                    <p class="skill-desc">Creating dynamic user interfaces and interactive web experiences.</p>
+                    <div class="liquid-container"><div class="liquid-fill"></div></div>
+                    <div class="card-footer">
+                        <span class="percentage">80%</span>
+                        <a href="javascript:void(0)" class="btn-mini">Details</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Scripts -->
+<script src="js/bgParticles.js"></script>
+<script src="js/skills.js"></script>
+<script src="js/services.js"></script>
+<script src="js/socialsmenu.js"></script>
+<script src="js/pathscroll.js"></script>
+<script src="js/hireme.js"></script>
+
+    <!-- FIX #2: Reveal body only after everything has loaded, preventing the white flash -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.visibility = 'visible';
+        });
+    </script>
+
+
+    <!-- Mobile nav JS -->
+    <script>
+        (function() {
+            const btn = document.getElementById('hamburger-btn');
+            const nav = document.querySelector('header nav');
+            const overlay = document.getElementById('nav-overlay');
+            if (!btn || !nav) return;
+
+            function openMenu() {
+                nav.classList.add('active');
+                btn.classList.add('open');
+                if (overlay) overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() {
+                nav.classList.remove('active');
+                btn.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            btn.addEventListener('click', () => {
+                nav.classList.contains('active') ? closeMenu() : openMenu();
+            });
+
+            if (overlay) overlay.addEventListener('click', closeMenu);
+
+            // Close when a nav link is tapped
+            nav.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', closeMenu);
+            });
+        })();
+    </script>
+
+</body>
+
+<!-- Smooth scroll for nav links -->
+<script>
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+<!-- EDUCATION -->
+<section class="education-page" id="education">
+    <h2 class="heading">My <span>Education</span></h2>
+
+    <div class="education-container">
+
+        <div class="edu-card liquid-glass">
+            <div class="edu-level">SHS</div>
+            <div class="edu-content">
+                <div class="edu-header">
+                    <h3>National University (NU) Lipa</h3>
+                    <span class="edu-year">2024 – 2026</span>
+                </div>
+                <p class="degree">Senior High School Graduate</p>
+                <p class="edu-desc">
+                    Completed Senior High School at NU Lipa. Developed strong foundations in JavaScript and Calculus and participated
+                    in various school activities such as Math Clubs fostering problem-solving skills and IT-related events to enhance technical knowledge and teamwork abilities.
+                </p>
+                <div class="edu-footer">
+                    <span class="honors">Bulldog Pride</span>
+                    <span class="location">Lipa City, Batangas</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="edu-card liquid-glass">
+            <div class="edu-level">JHS</div>
+            <div class="edu-content">
+                <div class="edu-header">
+                    <h3>Bolbok Integrated National High School</h3>
+                    <span class="edu-year">2022 – 2024</span>
+                </div>
+                <p class="degree">Junior High School Graduate</p>
+                <p class="edu-desc">
+                    Completed Grades 9 and 10, focusing on core academic subjects
+                    and technical-vocational foundations.
+                </p>
+                <div class="edu-footer">
+                    <span class="honors">JHS Completer</span>
+                    <span class="location">Lipa City, Batangas City</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience-page" id="experience">
+    <h2 class="heading">Work <span>Experience</span></h2>
+
+    <div class="experience-container">
+
+        <div class="exp-card liquid-glass">
+            <div class="exp-info">
+                <div class="exp-main">
+                    <h3>IT Work Immersion Student</h3>
+                    <p class="company">Sophie's Information Technology — Lipa City</p>
+                </div>
+                <span class="exp-duration" style="background: #ff4d4d; color: white; padding: 4px 12px; border-radius: 5px;">ONGOING</span>
+            </div>
+            <div class="exp-body">
+                <p class="exp-summary">
+                    Currently undergoing professional work immersion, gaining hands-on experience in real-world IT operations and technical support.
+                </p>
+                <ul class="exp-highlights">
+                    <li>Shadowing technical troubleshooting and maintenance to learn professional hardware/software standards.</li>
+                    <li>Observing professional IT workflows to understand how teams solve complex technical challenges.</li>
+                    <li>Applying academic knowledge to practical, industry-standard environments.</li>
+                </ul>
+                <div class="exp-tech-stack">
+                    <span>Technical Support</span>
+                    <span>IT Operations</span>
+                    <span>Professional Ethics</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="exp-card liquid-glass">
+            <div class="exp-info">
+                <div class="exp-main">
+                    <h3>Independent Developer</h3>
+                    <p class="company">Self-Taught Journey</p>
+                </div>
+                <span class="exp-duration">2026 – Present</span>
+            </div>
+            <div class="exp-body">
+                <p class="exp-summary">
+                    Dedicated over a year to learning web technologies and programming logic through self-directed study and project building.
+                </p>
+                <ul class="exp-highlights">
+                    <li>Self-taught in HTML5, CSS3, and JavaScript fundamentals.</li>
+                    <li>Self-managed learning schedules to keep up with evolving web technologies.</li>
+                    <li>Built my own responsive sites with a focus on clean design.</li>
+                </ul>
+                <div class="exp-tech-stack">
+                    <span>Self-Management</span>
+                    <span>Problem Solving</span>
+                    <span>Web Development</span>
+                    <span>UI/UX</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+</html>

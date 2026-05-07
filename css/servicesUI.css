@@ -1,0 +1,271 @@
+#services {
+    position: relative;
+    min-height: 100vh;
+    background: #050000; 
+    padding: 100px 7%;
+    color: white;
+    overflow: hidden; /* Keeps blobs inside the section */
+    z-index: 1;
+}
+
+/* Make sure your text stays sharp above the glow */
+#services .content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Specific heading for services */
+#services .heading {
+    margin-top: -50px;    /* Pulls the title UP */
+    margin-bottom: 3rem;  /* Keeps it close to the cards below */
+    font-size: 4.5rem; /* Makes it much bigger */
+    text-align: center;
+    margin-bottom: 10rem; /* Pulls the title closer to the cards */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#services .heading span {
+    color: #ff4d4d;
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.4);
+} 
+
+#services .services-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    padding-bottom: 5rem;
+}
+
+/* Targeting boxes only within the services section */
+#services .services-box {
+    flex: 1 1 300px;
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#services .services-box i {
+    font-size: 4rem;
+    color: #ff4d4d;
+    margin-bottom: 1rem;
+}
+
+#services .services-box h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+    color: #ff4d4d;
+}
+
+#services .services-box p {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #efefef;
+}
+
+#services .services-box .btn {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: 1.5rem;
+    display: inline-blocks;
+    padding: 1rem 2.2rem;
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+}
+
+/* RED GLOW LIQUID GLASS - ONLY FOR SERVICES */
+#services .liquid-glass {
+    background: rgba(20, 0, 0, 0.1) !important; /* Force the dark tint */
+    border: 1px solid #3d0000 !important; 
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    position: relative;
+    
+    /* FIX 1: Explicitly name the properties to animate */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+    
+    /* FIX 2: Hardware acceleration to prevent "sticking" */
+    transform: translateZ(0); 
+    will-change: transform, box-shadow;
+    
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.1),
+        0 0 15px rgba(139, 0, 0, 0.3); 
+}
+
+/* BASE STATE */
+/* BASE STATE */
+#services .liquid-glass {
+    /* ... your other code ... */
+    
+    /* 1. This is the 'Leaving' speed. Change 0.4s to 0.1s for instant reset */
+    transition: transform 0.1s ease-in, box-shadow 0.1s ease-in, background 0.1s ease-in;
+    
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+}
+
+
+/* 1. The Background Overlay (The "Liquid" Blur) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* 1. Lighter Opacity: Change 0.85 to 0.4 or 0.5 */
+    background: rgba(10, 0, 0, 0.5); 
+    
+    /* 2. Lighter Blur: Change 15px to 5px or 8px */
+    backdrop-filter: blur(20px);      
+    -webkit-backdrop-filter: blur(6px);
+    
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+/* 2. The Modal Box (Glassmorphism Style) */
+.modal-content {
+    background: rgba(255, 255, 255, 0.03); /* Very transparent white */
+    border: 1px solid rgba(255, 77, 77, 0.4); /* Red border glow */
+    padding: 4rem;
+    border-radius: 30px;
+    max-width: 700px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    
+    /* The Glow Effect */
+    box-shadow: 0 0 40px rgba(139, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+                
+    /* Pop-in Animation */
+    animation: liquidPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes liquidPop {
+    from { transform: scale(0.7); opacity: 0; filter: blur(10px); }
+    to { transform: scale(1); opacity: 1; filter: blur(0); }
+}
+
+/* 3. Modal Text Styling */
+.modal-content h2 {
+    color: #8B0000 !important;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+}
+
+.modal-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.6rem;
+    line-height: 1.8;
+    text-align: justify; /* Keeps it clean and professional */
+}
+
+/* 4. The Close Button */
+.close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2.5rem;
+    color: #ff4d4d;
+    font-size: 3rem;
+    font-weight: 200;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg);
+    color: white;
+}
+
+.modal-overlay.modal-opening {
+    animation: modalFadeIn 0.4s ease forwards;
+}
+
+.modal-overlay.modal-closing {
+    animation: modalFadeOut 0.4s ease forwards;
+}
+
+/* Animation Keyframes */
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes modalFadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+}
+
+/* This class prevents scrolling */
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* PC & Mobile Scroll Killer */
+.stop-scrolling {
+    overflow: hidden !important;
+    height: 100vh !important;
+    /* Prevents the layout from shifting when the scrollbar disappears */
+    padding-right: var(--scrollbar-width, 0px); 
+}
+/* =============================================
+   MOBILE RESPONSIVE — servicesUI
+   ============================================= */
+@media (max-width: 768px) {
+    #services {
+        padding: 80px 5% 60px;
+    }
+
+    #services .heading {
+        font-size: 3.2rem;
+        margin-top: 0;
+        margin-bottom: 4rem;
+    }
+
+    #services .services-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        margin-top: 0;
+    }
+
+    #services .services-box {
+        flex: unset;
+        width: 100%;
+        max-width: 400px;
+        padding: 2.5rem 2rem;
+    }
+
+    .modal-content {
+        padding: 3rem 2rem;
+        border-radius: 20px;
+    }
+
+    .modal-content h2 {
+        font-size: 2.2rem;
+    }
+
+    .modal-content p {
+        font-size: 1.4rem;
+    }
+}

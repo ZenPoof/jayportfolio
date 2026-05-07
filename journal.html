@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Jayron's Journal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/bgParticles.css">
+<link rel="stylesheet" href="css/headersjournal.css">
+<link rel="stylesheet" href="css/journalmain.css">
+
+    <style>
+
+        /* ── Journal Modal Animations ── */
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes modalFadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes modalSlideDown {
+    from { transform: translateY(0);    opacity: 1; }
+    to   { transform: translateY(40px); opacity: 0; }
+}
+
+.journal-modal-overlay.modal-opening {
+    display: flex;
+    animation: modalFadeIn 0.35s ease forwards;
+}
+
+.journal-modal-overlay.modal-opening .journal-modal {
+    animation: modalSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.journal-modal-overlay.modal-closing {
+    animation: modalFadeOut 0.3s ease forwards;
+}
+
+.journal-modal-overlay.modal-closing .journal-modal {
+    animation: modalSlideDown 0.3s ease forwards;
+}
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&display=swap');
+
+        *, *::before, *::after {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+        }
+
+        html { font-size: 62.5%; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: rgb(10, 0, 0);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── PARTICLE BG ── */
+        #bg-particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background-color: rgb(10, 0, 0) !important;
+            filter: blur(0.5px);
+            transform: scale(1.05);
+            overflow: hidden;
+        }
+        #particle-canvas {
+            display: block;
+            width: 100%; height: 100%;
+            opacity: 0.6;
+        }
+
+        /* ── HERO ── */
+        .journal-hero {
+            text-shadow: 0 0 15px rgba(139, 0, 0, 0.8), 0 0 30px rgba(139, 0, 0, 0.4);
+            padding: 190px 7% 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .journal-hero::before {
+            content: '';
+            position: absolute;
+            top: 80px; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 300px;
+            background: radial-gradient(ellipse, rgba(139,0,0,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.2rem;
+            color: #ff4d4d;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 600;
+            margin-bottom: 5rem;
+            padding: 0.6rem 1.8rem;
+            border: 1px solid rgba(255,77,77,0.3);
+            border-radius: 50px;
+            background: rgba(255,77,77,0.05);
+        }
+
+        .journal-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 8vw, 8rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+
+        .journal-hero h1 em {
+            font-style: italic;
+            color: #8B0000;
+            text-shadow: 0 0 40px rgba(139,0,0,0.5);
+        }
+
+        .journal-hero .subtitle {
+            font-size: 1.6rem;
+            color: rgba(255,255,255,0.45);
+            max-width: 520px;
+            margin: 0 auto 4rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ff4d4d;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.4rem;
+        }
+
+        /* ── DIVIDER ── */
+        .section-divider {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 6rem;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(139,0,0,0.5), transparent);
+        }
+
+        /* ── JOURNAL GRID ── */
+        .journals-section {
+            padding: 0 7% 100px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .section-title h2 span { color: #8B0000; }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(139,0,0,0.4), transparent);
+        }
+
+        .journals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 3rem;
+        }
+
+        /* ── JOURNAL CARD ── */
+        .journal-card {
+            background: rgba(20, 0, 0, 0.15);
+            border: 1px solid rgba(139,0,0,0.25);
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .journal-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .journal-card:hover {
+            border-color: rgba(255,77,77,0.5);
+            box-shadow: 0 0 40px rgba(139,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.02);
+            transform: translateY(-6px);
+        }
+
+        .card-accent {
+            height: 3px;
+            background: linear-gradient(90deg, #8B0000, #ff4d4d, transparent);
+        }
+
+        .card-body {
+            padding: 3rem;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .card-date {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.35);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .card-entry-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #8B0000;
+            font-style: italic;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-preview {
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.8;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 1rem;
+            color: #ff4d4d;
+            background: rgba(255,77,77,0.08);
+            border: 1px solid rgba(255,77,77,0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .read-arrow {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(139,0,0,0.2);
+            border: 1px solid rgba(139,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff4d4d;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .journal-card:hover .read-arrow {
+            background: #8B0000;
+            color: #000000;
+            transform: rotate(45deg);
+        }
+
+        /* ── FEATURED (FIRST) CARD ── */
+        .journal-card.featured {
+            grid-column: 1 / -1;
+        }
+
+        .journal-card.featured .card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .journal-card.featured .card-title {
+            font-size: 3.5rem;
+        }
+
+        .featured-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.1rem;
+            color: #ff4d4d;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .featured-badge i { font-size: 1rem; }
+
+        /* ── MODAL ── */
+        .journal-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 80px 2rem 4rem;
+            overflow-y: auto;
+        }
+
+        .journal-modal-overlay.open {
+            display: flex;
+            animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .journal-modal {
+            background: rgba(15, 0, 0, 0.8);
+            border: 1px solid rgba(139,0,0,0.35);
+            border-radius: 30px;
+            max-width: 780px;
+            width: 100%;
+            padding: 5rem;
+            position: relative;
+            box-shadow: 0 0 80px rgba(139,0,0,0.3);
+            animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2.5rem; right: 3rem;
+            font-size: 2.8rem;
+            color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 200;
+            line-height: 1;
+        }
+        .modal-close:hover { color: #ff4d4d; transform: rotate(90deg); }
+
+        .modal-entry-label {
+            font-size: 1.1rem;
+            color: #8B0000;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .modal-date {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+        }
+
+        .modal-divider {
+            height: 1px;
+            background: linear-gradient(to right, rgba(139,0,0,0.5), transparent);
+            margin-bottom: 3rem;
+        }
+
+        .modal-body {
+            font-size: 1.65rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        .modal-body p { margin-bottom: 2rem; }
+        .modal-body p:last-child { margin-bottom: 0; }
+
+        .modal-tags-row {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(139,0,0,0.2);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 8rem 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 6rem;
+            color: rgba(139,0,0,0.3);
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .empty-state p {
+            font-size: 1.6rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .journal-hero { padding: 120px 5% 40px; }
+            .journals-section { padding: 0 5% 80px; }
+            .journal-card.featured .card-body { grid-template-columns: 1fr; }
+            .journal-card.featured .card-title { font-size: 2.8rem; }
+            .stats-bar { gap: 2.5rem; }
+            .journal-modal { padding: 4rem 3rem; }
+            .modal-title { font-size: 3rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle BG -->
+    <div id="bg-particles">
+        <canvas id="particle-canvas"></canvas>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">Jayron <span>Kevin Paule</span></a>
+        <a href="index.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Portfolio
+        </a>
+    </header>
+
+    <!-- Hero -->
+    <div class="journal-hero">
+        <span class="hero-label">
+            <i class="fa-solid fa-feather"></i>
+            Personal Writing
+        </span>
+        <h1>My <em>Journal</em></h1>
+        <p class="subtitle">Thoughts, reflections, and experiences written along the journey of learning and growth.</p>
+
+        <!-- Update these numbers to match your journal count -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-num" id="entry-count">2</span>
+                <span class="stat-label">Entries</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="month-count">14</span>
+                <span class="stat-label">Days</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="word-count">0</span>
+                <span class="stat-label">Words Written</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Journal boxes -->
+    <section class="journals-section">
+        <div class="section-title">
+            <h2>Immersion <span>Journal</span></h2>
+        </div>
+
+        <div class="journals-grid" id="journals-grid">
+            
+            <div class="journal-card" data-entry="1">
+                <div class="card-accent"></div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="card-date">April 20-24, 2026</span>
+                        <span class="card-entry-num">Week #01</span>
+                    </div>
+                    <h3 class="card-title">Introduction to basic coding<br>(CSS3, HTML5, JavaScript).</h3>
+                    <p class="card-preview">Today I researched and studied the basic structure and instructions for coding.</p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="tag">Basic Coding</span>
+                        </div>
+                        <div class="read-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="journal-card" data-entry="2">
+                <div class="card-accent"></div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="card-date">April 27 - May 1, 2026</span>
+                        <span class="card-entry-num">Week #02</span>
+                    </div>
+                    <h3 class="card-title">Advanced CSS Layouts, HTML Structure,<br>JavaScript Functions.</h3>
+                    <p class="card-preview">Practicing how to code contents of the website and build responsive and interactable sections.</p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="tag">Styling</span>
+                        </div>
+                        <div class="read-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="journal-modal-overlay" id="journalModal">
+        <div class="journal-modal">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <span class="modal-entry-label" id="modalEntryLabel">Entry #01</span>
+            <h2 class="modal-title" id="modalTitle">Title</h2>
+            <p class="modal-date" id="modalDate">Date</p>
+            <div class="modal-divider"></div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-tags-row" id="modalTags"></div>
+        </div>
+    </div>
+
+    <script src="js/socialsmenu.js"></script>
+    <script src="js/pathscroll.js"></script>
+    <script src="js/journal.js"></script>
+
+    <script>
+        /* ══════════════════════════════════════════════
+           PARTICLE ENGINE — exact copy of bgParticles.js
+           (inlined so background always works on this page)
+        ══════════════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('particle-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let W, H, particles;
+            const mouse = { x: -9999, y: -9999 };
+
+            const CONFIG = {
+                count:        150,
+                baseRadius:   1.4,
+                speed:        0.18,
+                lineDistance: 120,
+                mouseRadius:  50,
+                colors: [
+                    'rgba(139,0,0,',
+                    'rgba(170,15,0,',
+                    'rgba(100,0,0,',
+                    'rgba(210,40,40,'
+                ]
+            };
+
+            function resize() {
+                W = canvas.width  = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function mkParticle() {
+                const col = CONFIG.colors[Math.floor(Math.random() * CONFIG.colors.length)];
+                return {
+                    x:   Math.random() * W,
+                    y:   Math.random() * H,
+                    vx:  (Math.random() - 0.5) * CONFIG.speed * 2,
+                    vy:  (Math.random() - 0.5) * CONFIG.speed * 2,
+                    r:   CONFIG.baseRadius + Math.random() * 1.3,
+                    col: col,
+                    op:  0.35 + Math.random() * 0.55
+                };
+            }
+
+            function init() {
+                resize();
+                particles = Array.from({ length: CONFIG.count }, mkParticle);
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p  = particles[i];
+                    const dx = p.x - mouse.x;
+                    const dy = p.y - mouse.y;
+                    const md = Math.sqrt(dx * dx + dy * dy);
+
+                    if (md < CONFIG.mouseRadius && md > 0) {
+                        const force = (CONFIG.mouseRadius - md) / CONFIG.mouseRadius;
+                        p.x += (dx / md) * force * 1.8;
+                        p.y += (dy / md) * force * 1.8;
+                    }
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0)  p.x = W;
+                    if (p.x > W)  p.x = 0;
+                    if (p.y < 0)  p.y = H;
+                    if (p.y > H)  p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.col + p.op + ')';
+                    ctx.fill();
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const q  = particles[j];
+                        const ex = p.x - q.x;
+                        const ey = p.y - q.y;
+                        const ed = Math.sqrt(ex * ex + ey * ey);
+
+                        if (ed < CONFIG.lineDistance) {
+                            const t = 1 - ed / CONFIG.lineDistance;
+
+                            // bright core line
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(q.x, q.y);
+                            ctx.strokeStyle = 'rgba(255,30,30,' + (t * 0.55) + ')';
+                            ctx.lineWidth   = 1.2;
+                            ctx.stroke();
+
+                            // soft glow halo around line
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(q.x, q.y);
+                            ctx.strokeStyle = 'rgba(255,80,60,' + (t * 0.18) + ')';
+                            ctx.lineWidth   = 3.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('mousemove', e => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            window.addEventListener('resize', () => {
+                resize();
+                particles = Array.from({ length: CONFIG.count }, mkParticle);
+            });
+
+            init();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════════════
+           JOURNAL DATA — add/edit entries here
+           Each key matches a card's data-entry value
+        ══════════════════════════════════════════════ */
+        const JOURNAL_DATA = {
+            1: {
+                entryNum: "Week #01",
+                title: "Introduction to basic coding (CSS3, HTML5, JavaScript).",
+                date: "April 20-24, 2026",
+                tags: ["Basic Coding", "HTML5", "CSS3", "JavaScript"],
+                body: `
+                    <p>This week marked the very beginning of my coding immersion. I spent time researching and studying the fundamental structure of the three core web technologies — HTML5, CSS3, and JavaScript.</p>
+                    <p>HTML5 gave me the skeleton: how to structure content with tags, semantic elements, and proper document hierarchy. I learned what headings, paragraphs, links, and divs actually do under the hood.</p>
+                    <p>CSS3 introduced me to the world of visual styling — how to control color, spacing, fonts, and layout. It was both exciting and overwhelming seeing how many properties exist.</p>
+                    <p>JavaScript was a glimpse into making things interactive. I understood variables, functions, and basic DOM manipulation at a surface level this week.</p>
+                    <p>Overall, Week 1 was about building a mental map of how these three languages work together to create everything we see on the web.</p>
+                `
+            },
+            2: {
+                entryNum: "Week #02",
+                title: "Advanced CSS Layouts, HTML Structure, JavaScript Functions.",
+                date: "April 27 - May 1, 2026",
+                tags: ["Styling", "CSS Layouts", "Flexbox", "Grid", "JS Functions"],
+                body: `
+                    <p>Week 2 pushed me deeper. Instead of just understanding what things are, I started actually <em>building</em> with them.</p>
+                    <p>On the CSS side, I dove into Flexbox and CSS Grid — two powerful layout systems. Flexbox helped me align items in rows and columns effortlessly, while Grid gave me control over two-dimensional page layouts.</p>
+                    <p>For HTML, I focused on proper semantic structure: using <code>section</code>, <code>article</code>, <code>nav</code>, and <code>header</code> correctly so that pages are both accessible and meaningful.</p>
+                    <p>With JavaScript, I started writing real functions — taking inputs, processing them, and returning outputs. Event listeners brought the page to life, letting me respond to clicks and user interactions.</p>
+                    <p>By the end of the week I had built a small, responsive webpage section on my own. Seeing it work on both desktop and mobile felt like a real milestone.</p>
+                `
+            }
+        };
+
+        /* ── Modal Logic ── */
+        const modal = document.getElementById('journalModal');
+        const modalClose = document.getElementById('modalClose');
+
+        document.querySelectorAll('.journal-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const entryId = parseInt(card.getAttribute('data-entry'));
+                const data = JOURNAL_DATA[entryId];
+                if (!data) return;
+
+                document.getElementById('modalEntryLabel').textContent = data.entryNum;
+                document.getElementById('modalTitle').textContent = data.title;
+                document.getElementById('modalDate').textContent = data.date;
+                document.getElementById('modalBody').innerHTML = data.body;
+
+                const tagsRow = document.getElementById('modalTags');
+                tagsRow.innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        const closeModal = () => {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        // ── Scroll Reveal ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.journal-card').forEach(card => observer.observe(card));
+
+        // ── Count-up stats ──
+        function countUp(el, target, suffix = '') {
+            let count = 0;
+            const step = Math.ceil(target / 60);
+            const timer = setInterval(() => {
+                count = Math.min(count + step, target);
+                el.textContent = count + suffix;
+                if (count >= target) clearInterval(timer);
+            }, 30);
+        }
+
+        countUp(document.getElementById('entry-count'), 2);
+        countUp(document.getElementById('month-count'), 14); 
+        countUp(document.getElementById('word-count'), 198);
+    </script>
+
+</body>
+</html>

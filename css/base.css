@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+/* =========================
+   GLOBAL RESET
+   ========================= */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* =========================
+   BASE HTML SETTINGS
+   ========================= */
+html{
+    font-size: 62.5%;
+}
+
+/* =========================
+   BODY (GLOBAL BACKGROUND)
+   ========================= */
+body{
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: white;
+    background-color: black;
+
+    padding-bottom: 0rem;
+}
+
+/* =========================
+   GLOBAL SPAN STYLE
+   ========================= */
+span{
+    color: #b74b4b;
+}
+
+/* =========================
+   SECTION BASE STYLE
+   ========================= */
+section{
+    min-height: 100vh;
+    width: 100%;
+    padding: 5rem 5%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html, body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+/* FORCE OVERRIDE FOR ALL SECTIONS */
+section, 
+div[id], 
+header, 
+footer {
+    background-color: transparent !important;
+}
+
+/* Particle Background Styles */
+#bg-particles {
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* Keep it behind everything */
+    pointer-events: none;
+    background: rgb(10, 0, 0);
+}
+
+#particle-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Add this to your stylesheet */
+.lock-screen {
+    overflow: hidden !important;
+    touch-action: none; /* Stops swipe-scrolling on mobile */
+    -ms-touch-action: none;
+}
+
+/* 1. Set the global font but EXCLUDE icons (i tags) */
+*:not(i) {
+    font-family: var(--font-body);
+}
+
+/* 2. Explicitly protect Font Awesome icons from being overridden */
+i.fa-solid, 
+i.fa-brands, 
+i.fa-regular, 
+.fas, .fab, .fa {
+    font-family: "Font Awesome 6 Free" !important;
+    /* Brands specifically need a different weight/family sometimes */
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 3. Brands specific fix (Discord, Facebook, etc.) */
+i.fa-brands {
+    font-family: "Font Awesome 6 Brands" !important;
+}

@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+/* reset everything so nothing looks weird */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* position of the contents */
+.home{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+    min-height: 100vh;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+/* Styling only the word 'Jayron' */
+.home-content h1 span {
+    color: #b74b4b; /* Your signature red color */
+    text-shadow: 0 0 10px rgba(183, 75, 75, 0.8), 
+                 0 0 20px rgba(183, 75, 75, 0.4);
+    font-weight: 800; /* Extra thickness to make it pop */
+}
+
+/* Ensuring the rest of the name stays white */
+.home-content h1 {
+    color: white;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* I'm a... SIZE */
+.home-content h3{
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+/* paragraph text size */
+.home-content p{
+font-size: 1.5rem;
+    color: white;
+    line-height: 1.6;
+    
+    /* 1. This makes both sides perfectly straight */
+    text-align: justify; 
+    
+    /* 2. This keeps the block from getting too wide */
+    max-width: 600px; 
+    
+    /* 3. Optional: Adds a small gap between the paragraph and title */
+    margin-top: 1.5rem;
+}
+
+/* cat img and position */
+.home-img{
+    position: relative;
+    margin-left: 0px;
+    margin-right: 10px;
+}
+
+/* cat image wrapper (circle) */
+.cat-wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;   /* Ensures the container is a circle */
+    overflow: hidden;     /* Chops off anything sticking out */
+    background: #080808;  /* Matches your page background so gaps are invisible */
+}
+
+/* ^^^ these 2 work together vvv */
+
+/* cat image style */
+.cat{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* normal cat shown */
+.cat.normal{
+    opacity: 1;
+}
+
+.btn {
+    position: absolute;
+    left: 25%;
+    top: 85%;
+    
+    /* FIX: min-width ensures "Email Copied" NEVER pushes the walls out */
+    min-width: 150px; 
+    height: 60px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #080808;
+    border-radius: 4rem;
+    font-size: 1.8rem; 
+    color: #8B0000;
+    letter-spacing: 0.3rem;
+    font-weight: 600;
+    border: 2px solid #8B0000;
+    white-space: nowrap;
+    cursor: pointer;
+    
+    /* Use 'transform' specifically for the zoom to keep it smooth */
+    transition: transform 0.2s ease, background-color 0.3s, color 0.3s;
+    box-shadow: 0 0 10px rgba(183, 75, 75, 0.4);
+}
+
+.btn:hover {
+    /* Zooms out (shrinks) slightly */
+    transform: scale(1.05); 
+    background-color: #8B0000;
+        letter-spacing: 0.3rem;
+    color: #080808;
+}
+
+/* Fixes the "multiple click" bug - forces it to stay small while clicking */
+.btn:active {
+    transform: scale(0.92) !important;
+letter-spacing: 0.3rem;
+}
+
+/* =============================================
+   MOBILE RESPONSIVE — homeUI
+   ============================================= */
+@media (max-width: 768px) {
+    .home {
+        flex-direction: column;
+        gap: 3rem;
+        padding-top: 10rem;
+        padding-bottom: 4rem;
+        text-align: center;
+        align-items: center;
+    }
+
+    .home-img {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cat-wrapper {
+        width: 200px;
+        height: 200px;
+    }
+
+    .home-content h1 {
+        font-size: 3.4rem;
+        text-align: center;
+    }
+
+    .home-content h3 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .home-content p {
+        font-size: 1.4rem;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .btn.hire-btn {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin: 2rem auto 0;
+        font-size: 1.5rem;
+        height: 50px;
+        min-width: 140px;
+    }
+}
